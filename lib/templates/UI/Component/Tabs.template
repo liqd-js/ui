@@ -1,0 +1,26 @@
+[Tabs]
+{
+    <style>
+        .UI_Tabs
+        {
+            display: flex;
+            flex-direction: row;
+            justify-content: flex-start;
+            border-bottom: 1px solid silver;
+        
+            > .UI_Tab
+            {
+                position: relative;
+            }
+        }
+    </style>    
+    <div class={'UI_Tabs' + ( $props.class ? ' ' + $props.class : '' )}>
+        {$content}
+    </div>
+}
+[Tabs.Tab]
+{
+    <div class={'UI_Tab' + ( $props.class ? ' ' + $props.class : '' )}>
+        {$content}
+    </div>
+}

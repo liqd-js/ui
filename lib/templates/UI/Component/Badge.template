@@ -1,0 +1,9 @@
+<style>
+    .UI_Badge
+    {
+        @no-user-select;
+
+        // TODO
+    }
+</style>
+<div class={'UI_Badge' + $props.class ? ' ' + $props.class : ''}><div>
