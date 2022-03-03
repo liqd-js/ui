@@ -4,9 +4,31 @@
         <meta charset="utf-8"/>
     </head>
     <body>
-        <UI/Component/Tabs>
-            <div class="UI_Tab">Prvy</div>
-            <div class="UI_Tab">Druhy</div>
-        </UI/Component/Tabs>
+        <Tabs>
+            <Tabs.Tab data-id="prvy">Prvy</Tabs.Tab>
+            <Tabs.Tab data-id="druhy">Druhy</Tabs.Tab>
+        </Tabs>
+        <Table
+            layout={
+            [
+                { c: 1, h: 2 },
+                { c: 2 },
+                { r: 2, c: 2 }
+            ]}
+        >
+            <Table.Header>
+                <Table.Cell>prvy</Table.Cell>
+                <Table.Cell>druhy</Table.Cell>
+                <Table.Cell>treti</Table.Cell>
+            </Table.Header>
+            for( let i = 1; i <= 100; ++i )
+            {
+                <Table.Row>
+                    <Table.Cell>prvy {i}</Table.Cell>
+                    <Table.Cell>druhy {i}</Table.Cell>
+                    <Table.Cell>treti {i}</Table.Cell>
+                </Table.Row>
+            }
+        </Table>
     </body>
 </html>

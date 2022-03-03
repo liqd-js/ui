@@ -1,0 +1,70 @@
+[root]
+{
+    {
+        function gridAreas( id, layout )
+        {
+            let style = '', i = 0;
+
+            for( let cell of layout )
+            {
+                style += `#${id}>.UI_Table_Row:nth-child(${++i}+${layout.length}n){ grid-column: ${ cell.c || 1 } / span ${ cell.w || 1 }; grid-row: auto / span ${ cell.h || 1 }; }`; // TODO nedobre
+            }
+
+            console.log( style );
+            return style;
+        }
+    }
+    <style>
+        .UI_Table
+        {
+            display: grid;
+            flex-direction: column;
+            justify-content: flex-start;
+            grid-template-columns: 0.5fr 1fr 2fr;
+        
+            > .UI_Table_Header
+            {
+                display: contents;
+
+                > .UI_Table_Cell
+                {
+                    background: red;
+                }
+            }
+
+            > .UI_Table_Row
+            {
+                display: contents;
+            }
+
+            > .UI_Table_Cell
+            {
+                position: relative;
+
+                &:nth-child(1){ grid-area: 1; }
+            }
+        }
+    </style>
+    #{ '<style>' + gridAreas( $props.id || $id, $props.layout ) + '</style>'}
+    <div id={ $props.id || $id } class={'UI_Table' + ( $props.class ? ' ' + $props.class : '' )}>
+        {$content}
+    </div>
+}
+[root.Header]
+{
+    <div class={'UI_Table_Header' + ( $props.class ? ' ' + $props.class : '' )}>
+        {$content}
+    </div>
+}
+[root.Row]
+{
+    <div class={'UI_Table_Row' + ( $props.class ? ' ' + $props.class : '' )}>
+        {$content}
+    </div>
+}
+[root.Cell]
+{
+    <div class={'UI_Table_Cell' + ( $props.class ? ' ' + $props.class : '' )}>
+        {$content}
+    </div>
+}
