@@ -1,9 +1,17 @@
 <style>
     .UI_Badge
     {
-        @no-user-select;
-
-        // TODO
+        // @no-user-select;
+        display: inline-block;
+        height: var(--badge-height);
+        line-height: var(--badge-height);
+        min-width: var(--badge-min-width, var(--badge-height));
+        padding: 0 var(--badge-padding);
+        border-radius: var(--badge-border-radius, calc(var(--badge-height) / 2 ));
+        box-sizing: border-box;
+        background: var(--badge-background);
+        color: var(--badge-color);
+        text-align: center;
     }
 </style>
-<div class={'UI_Badge' + $props.class ? ' ' + $props.class : ''}><div>
+<span class="UI_Badge">{$props.value}</span>

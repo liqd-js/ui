@@ -1,0 +1,70 @@
+<script>
+    ( function()
+    {
+        function get_days_of_month( year, month ){ return new Date( year, month, 0 ).getDate() }
+        function get_day_of_week( year, month, day ){ return new Date( year, month - 1, day ).getDay() }
+
+
+        class UI_Calendar extends HTMLElement
+        {
+            constructor()
+            {
+                super();
+
+                console.log( 'UI calendar' );
+
+                this.attachShadow({ mode: 'open' });
+            }
+
+            render()
+            {
+                let [ year, month ] = this.getAttribute('date').split('-').map( v => v !== undefined ? parseInt(v) : v );
+
+                let days = get_days_of_month( year, month ), weekday = ( get_day_of_week( year, month, 1 ) + 6 ) % 7; // detect monday/sunday startday
+
+                let html = '<div class="month">';
+
+                for( let day = 1; day <= days; ++day )
+                {
+                    html += '<div class="day" ' + ( day === 1 ? 'style="grid-column-start:' + ( weekday + 1 ) + ';"' : '' ) + '>' + day + '</div>';
+                }
+
+                html += '</div>';
+
+                this.shadowRoot.innerHTML = html;
+
+                let style = document.createElement('style');
+                style.textContent = `.month{ display: grid; grid-template-columns: repeat( 7, 1fr ); }`;
+                this.shadowRoot.appendChild(style);
+            }
+
+            connectedCallback() // added to page
+            {
+                this.render();
+            }
+            
+            disconnectedCallback() // removed from page
+            {
+                
+            }
+            
+            adoptedCallback() // moved to page
+            {
+                
+            }
+
+            attributeChangedCallback( name, old, current )
+            {
+                this.render();
+            }
+
+            static get observedAttributes(){ return [ 'date' ]}
+        }
+
+        customElements.define( 'ui-calendar', UI_Calendar );
+    })();
+</script>
+<style>
+    ui-calendar{ display: block; border: 1px solid silver; width: 200px; height: 300px; }
+</style>
+<ui-calendar {[date]...$props}></ui-calendar>

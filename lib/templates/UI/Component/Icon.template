@@ -1,0 +1,18 @@
+<style>
+    .UI_Icon
+    {
+        display: inline-block;
+        width: 24px;
+        height: 24px;
+        mask-size: var(--icon-size, 100% 100%);
+        mask-image: var(--icon);
+        mask-repeat: no-repeat;
+        mask-position: var(--icon-position, center center);
+        -webkit-mask-size: var(--icon-size, 100% 100%);
+        -webkit-mask-image: var(--icon);
+        -webkit-mask-repeat: no-repeat;
+        -webkit-mask-position: var(--icon-position, center center);
+        background: var(--icon-background);
+    }
+</style>
+<span class="UI_Icon" style={`--icon:url(${$props.icon});${$props.style||''}`}></span>

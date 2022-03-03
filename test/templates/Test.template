@@ -2,13 +2,24 @@
 <html>
     <head>
         <meta charset="utf-8"/>
+        <style>
+            :root
+            {
+                --badge-height: 24px;
+                --badge-padding: 4px;
+                --badge-background: red;
+                --badge-color: white;
+
+                --icon-background: red;
+            }
+        </style>
     </head>
     <body>
         <Tabs>
             <Tabs.Tab data-id="prvy">Prvy</Tabs.Tab>
             <Tabs.Tab data-id="druhy">Druhy</Tabs.Tab>
         </Tabs>
-        <Table
+        /*<Table
             layout={
             [
                 { c: 1, h: 2 },
@@ -29,6 +40,8 @@
                     <Table.Cell>treti {i}</Table.Cell>
                 </Table.Row>
             }
-        </Table>
+        </Table>*/
+        <Calendar date="2022-03" />
+        <Icon icon="https://js.webergency.com/icons/shopping-cart.svg" />Ikona<Badge value={10} />
     </body>
 </html>
