@@ -1,0 +1,13 @@
+<style>
+    .UI_Avatar
+    {
+        display: inline-block;
+        width: var(--avatar-width, var( --avatar-size ));
+        height: var(--avatar-width, var( --avatar-size ));
+        margin: var(--avatar-margin, 0);
+        background-color: var(--avatar-background, transparent);
+        background-image: var(--avatar-image, none);
+        background-size: contain;
+    }
+</style>
+<span class={$$.concat(' ', 'UI_Avatar', $props.class )} style={$$.concat(';', `--avatar-image:url(${$props.image})`, $props.style )} {[!class,!style,!image]...$props}></span>

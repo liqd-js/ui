@@ -14,4 +14,4 @@
         text-align: center;
     }
 </style>
-<span class="UI_Badge">{$props.value}</span>
+<span class={$$.concat(' ', 'UI_Badge', $props.class )} {[!class]...$props}>{$props.value}</span>

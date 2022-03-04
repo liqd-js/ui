@@ -42,6 +42,6 @@
             }
         </Table>*/
         <Calendar date="2022-03" />
-        <Icon icon="https://js.webergency.com/icons/shopping-cart.svg" />Ikona<Badge value={10} />
+        <Icon icon="https://js.webergency.com/icons/shopping-cart.svg" onclick="alert('Ikona')" />Ikona<Badge value={10} />
     </body>
 </html>

@@ -23,6 +23,6 @@
   ],
   "devDependencies": {
     "@liqd-js/server": "^1.2.5",
-    "@liqd-js/template": "^0.9.0"
+    "@liqd-js/template": "^0.9.1"
   }
 }

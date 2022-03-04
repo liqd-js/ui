@@ -1,0 +1,18 @@
+{
+    function resolve_columns( columns )
+    {
+        return `repeat( ${columns}, 1fr )`;
+    }
+}
+<style>
+    .UI_Grid
+    {
+        display: grid;
+        grid-auto-flow: row dense;
+    }
+</style>
+<div class={$$.concat(' ', 'UI_Grid', $props.class )} style={
+    $$.concat(';', 
+        $props.columns && `grid-template-columns:${resolve_columns($props.columns)}`, 
+        $props.style )}
+    {[!class,!style,!icon]...$props}>{$content}</div>

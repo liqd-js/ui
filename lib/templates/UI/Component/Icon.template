@@ -2,17 +2,18 @@
     .UI_Icon
     {
         display: inline-block;
-        width: 24px;
-        height: 24px;
-        mask-size: var(--icon-size, 100% 100%);
+        width: var(--icon-width, var( --icon-size ));
+        height: var(--icon-width, var( --icon-size ));
+        margin: var(--icon-margin, 0);
+        background: var(--icon-color, black);
+        mask-size: var(--icon-size, 100%) var(--icon-size, 100%);
         mask-image: var(--icon);
         mask-repeat: no-repeat;
         mask-position: var(--icon-position, center center);
-        -webkit-mask-size: var(--icon-size, 100% 100%);
+        -webkit-mask-size: var(--icon-size, 100%) var(--icon-size, 100%);
         -webkit-mask-image: var(--icon);
         -webkit-mask-repeat: no-repeat;
         -webkit-mask-position: var(--icon-position, center center);
-        background: var(--icon-background);
     }
 </style>
-<span class="UI_Icon" style={`--icon:url(${$props.icon});${$props.style||''}`}></span>
+<span class={$$.concat(' ', 'UI_Icon', $props.class )} style={$$.concat(';', $props.icon && `--icon:url(${$props.icon})`, $props.style )} {[!class,!style,!icon]...$props}></span>

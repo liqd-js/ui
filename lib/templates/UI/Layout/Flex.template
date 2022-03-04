@@ -1,0 +1,21 @@
+{
+    function resolve_columns( columns )
+    {
+        return `repeat( ${columns}, 1fr )`;
+    }
+}
+<style>
+    .UI_Flex
+    {
+        display: flex;
+
+        &.column{ flex-direction: column; }
+        &.center{ justify-content: center; }
+        &.middle{ align-items: middle; }
+    }
+</style>
+<div class={$$.concat(' ', 'UI_Flex', $props.class )} style={
+    $$.concat(';', 
+        $props.columns && `grid-template-columns:${resolve_columns($props.columns)}`, 
+        $props.style )}
+    {[!class,!style,!icon]...$props}>{$content}</div>
