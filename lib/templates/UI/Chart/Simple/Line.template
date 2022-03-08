@@ -1,0 +1,24 @@
+{
+    function Line( data, options )
+    {
+        if( !Array.isArray( data )){ data = [ data ]}
+
+        let min = options.min ?? Math.min( ...data.map( d => Math.min( ...d.values )));
+        let max = options.max ?? Math.max( ...data.map( d => Math.max( ...d.values )));
+        let segment = options.width / ( data[0].values.length - 1 );
+
+        let svg = `<svg width="${options.width}" height="${options.height}" viewBox="0 0 ${options.width} ${options.height}">`;
+        
+        for( let datum of data )
+        {
+            svg += `<polyline points="${ datum.values.map(( v, i ) => ( i * segment )+ ',' + ( options.height * ( 1 - v / ( max - min )))).join(' ') }" stroke="${datum.color}" fill="none" stroke-width="${options.weight}" />`;
+        }
+    
+        svg += '</svg>';
+
+        console.log( svg );
+
+        return svg;
+    }
+}
+#{Line( $props.data, { width: $props.width, height: $props.height, min: $props.min, max: $props.max, weight: 3 })}

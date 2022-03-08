@@ -1,4 +1,6 @@
 {
+    //https://componentator.com
+
     function arcradius( cx, cy, radius, degrees )
     {
 		var radians = ( degrees - 90 ) * Math.PI / 180.0;
@@ -14,19 +16,11 @@
         
         console.log( radius );
         
-        let svg = `<svg width="300" height="300" viewBox="0 0 300 300" data-total="${total}">`;
+        let svg = `<svg width="${2*options.radius}" height="${2*options.radius}" viewBox="0 0 ${2*options.radius} ${2*options.radius}" data-total="${total}">`;
         
         for( let datum of data )
         {
             var angle = 360 * datum.value / total;
-
-            /*if (i === length - 1 && count < 100)
-                p = p + (100 - count);
-
-            end = beg + ((360 / 100) * p);
-            tmp.index = i;
-            tmp.value = item.value;
-            tmp.data = item;*/
 
             var b = arcradius( cx, cy, radius, start + angle );
             var e = arcradius( cx, cy, radius, start );
@@ -42,4 +36,4 @@
         return svg;
     }
 }
-#{Pie(  [{ value: 33, color: 'red' }, { value: 20, color: 'green' }, { value: 80, color: 'blue' }, { value: 48, color: 'yellow' }], { radius: 150, width: 150 })}
+#{Pie( $props.data, { radius: $props.radius, width: $props.width || $props.radius })}
