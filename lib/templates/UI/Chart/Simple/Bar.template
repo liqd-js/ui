@@ -1,0 +1,60 @@
+{
+    function arcradius( cx, cy, radius, degrees )
+    {
+		var radians = ( degrees - 90 ) * Math.PI / 180.0;
+		return { x: cx + ( radius * Math.cos( radians )), y: cy + ( radius * Math.sin( radians ))};
+	}
+
+    function Pie( data, options )
+    {
+        let total = data.reduce(( t, d ) => t += d.value, 0 );
+        let radius = options.radius - 2 * options.width, width = options.width;
+        let cx = radius, cy = radius;
+        let start = 0;	
+        
+        console.log( radius );
+        
+        let svg = `<svg width="600" height="600" viewBox="0 0 600 600" data-total="${total}">`;
+        
+        for( let datum of data )
+        {
+            var angle = 360 * datum.value / total;
+
+            /*if (i === length - 1 && count < 100)
+                p = p + (100 - count);
+
+            end = beg + ((360 / 100) * p);
+            tmp.index = i;
+            tmp.value = item.value;
+            tmp.data = item;*/
+
+            var b = arcradius( cx, cy, radius, start );
+            var e = arcradius( cx, cy, radius, start + angle );
+            var la = angle <= 180 ? 0 : 1;
+        
+            [b,e] = [e,b];
+            
+            console.log( b, e, start, datum.value / total );
+            
+            start += angle;
+            
+            svg += `<g><path d="${['M', b.x, b.y, 'A', radius, radius, 0, la, 0, e.x, e.y].join(' ')}" stroke="${datum.color}" fill="none" stroke-width="${width}" /></g>`;
+            
+            //break;
+        
+        
+
+            /*tmp.d = ;
+            arr.push(tmp);
+            beg = end;*/
+        }
+    
+        svg += '</svg>';
+        
+        document.getElementById('debug').innerHTML = svg;
+
+        return svg;
+    }
+}
+
+Pie(  [{ value: 33, color: 'red' }, { value: 20, color: 'green' }, { value: 80, color: 'blue' }, { value: 48, color: 'yellow' }], { radius: 300, width: 100 })

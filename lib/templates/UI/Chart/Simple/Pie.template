@@ -12,9 +12,7 @@
         let total = data.reduce(( t, d ) => t += d.value, 0 );
         let radius = options.radius - options.width / 2, width = options.width;
         let cx = options.radius, cy = options.radius;
-        let start = 0;	
-        
-        console.log( radius );
+        let start = 0;
         
         let svg = `<svg width="${2*options.radius}" height="${2*options.radius}" viewBox="0 0 ${2*options.radius} ${2*options.radius}" data-total="${total}">`;
         

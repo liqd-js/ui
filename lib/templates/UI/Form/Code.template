@@ -1,0 +1,97 @@
+<script src="https://unpkg.com/monaco-editor@latest/min/vs/loader.js"></script>
+<script>
+    ( function()
+    {
+        require.config({ paths: { 'vs': 'https://unpkg.com/monaco-editor@latest/min/vs' }, 'vs/css': { disabled: true }});
+
+        class UI_Code extends HTMLElement
+        {
+            constructor()
+            {
+                super();
+            }
+
+            _init()
+            {
+                console.log( this.innerText );
+
+                let source = this.childNodes[0].textContent.trim();
+                this.innerHTML = '';
+                let html = '<div class="wrapper"></div>';
+
+                const shadowRoot = this.attachShadow({
+                    mode: 'closed'
+                });
+
+                console.log( this, this.childNodes, shadowRoot.innerHTML );
+
+                shadowRoot.innerHTML = html;
+
+                let style = document.createElement('style');
+                style.textContent = `@import "https://unpkg.com/monaco-editor@latest/min/vs/editor/editor.main.css";\n.wrapper{ position: relative; width: 100%; height: 100%; } .monaco-editor{padding: 0px;}`;
+                shadowRoot.appendChild(style);
+
+                let hidden_lines = 
+                {
+                    lineNumbers: 'off',
+                    glyphMargin: false,
+                    folding: false,
+                    lineDecorationsWidth: 0,
+                    lineNumbersMinChars: 0
+                }
+
+                require(["vs/editor/editor.main"], () => 
+                {
+                    monaco.editor.create( shadowRoot.querySelector('.wrapper'),
+                    {
+                        value: source,
+                        language: this.getAttribute('language') || 'javascript',
+                        theme: 'vs-light', //vs-dark
+                        minimap: {
+                            enabled: false
+                        },
+                        useShadowDOM: true,
+                        //...options
+                        ...hidden_lines
+                    });
+                });
+            }
+
+            connectedCallback() // added to page
+            {
+                //this.render();
+                console.log( 'connectedCallback', this.childNodes.length, this.innerText );
+
+                window.requestAnimationFrame(() =>
+                {
+                    this._init();
+                });
+            }
+            
+            disconnectedCallback() // removed from page
+            {
+                
+            }
+            
+            adoptedCallback() // moved to page
+            {
+                console.log( 'adoptedCallback', this.childNodes.length );
+            }
+
+            attributeChangedCallback( name, old, current )
+            {
+                this.render();
+            }
+
+            static get observedAttributes(){ return [ 'date' ]}
+        }
+
+        customElements.define( 'ui-code', UI_Code );
+    })();
+</script>
+<style>
+    ui-code{ display: block; position: relative; border: 1px solid silver; width: 800px; height: 800px; }
+</style>
+<ui-code {[language]...$props}>
+    {$content}
+</ui-code>
