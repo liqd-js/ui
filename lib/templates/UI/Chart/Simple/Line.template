@@ -3,20 +3,27 @@
     {
         if( !Array.isArray( data )){ data = [ data ]}
 
-        let min = options.min ?? Math.min( ...data.map( d => Math.min( ...d.values )));
-        let max = options.max ?? Math.max( ...data.map( d => Math.max( ...d.values )));
+        let padding = options.weight;
+        let min = ( options.min ?? Math.min( ...data.map( d => Math.min( ...d.values )))) - padding;
+        let max = ( options.max ?? Math.max( ...data.map( d => Math.max( ...d.values )))) + padding;
         let segment = options.width / ( data[0].values.length - 1 );
 
-        let svg = `<svg width="${options.width}" height="${options.height}" viewBox="0 0 ${options.width} ${options.height}">`;
+        let defs = '', content = '';
         
-        for( let datum of data )
+        for( let i = 0; i < data.length; ++i )
         {
-            svg += `<polyline points="${ datum.values.map(( v, i ) => ( i * segment )+ ',' + ( options.height * ( 1 - v / ( max - min )))).join(' ') }" stroke="${datum.color}" fill="none" stroke-width="${options.weight}" />`;
+            let datum = data[i];
+
+            if( datum.gradient )
+            {
+                defs += `<linearGradient id="gradient_${i+1}" gradientUnits="userSpaceOnUse" x1="0%" x2="0%" y1="0%" y2="100%"><stop offset="0%"  stop-color="${datum.gradient[0]}" /><stop offset="100%" stop-color="${datum.gradient[1]}" /></linearGradient>`;
+                content += `<polyline points="0,${options.height} ${ datum.values.map(( v, i ) => ( i * segment )+ ',' + ( options.height * ( 1 - ( v - min ) / ( max - min )))).join(' ') } ${options.width},${options.height}" stroke="none" fill="url('#gradient_${i+1}')" />`;
+            }
+            
+            content += `<polyline points="${ datum.values.map(( v, i ) => ( i * segment )+ ',' + ( options.height * ( 1 - ( v - min ) / ( max - min )))).join(' ') }" stroke="${datum.color}" fill="none" stroke-width="${options.weight}" />`;
         }
     
-        svg += '</svg>';
-
-        return svg;
+        return `<svg viewBox="0 0 ${options.width} ${options.height}" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">${defs ? '<defs>' + defs + '</defs>' : ''}${content}</svg>`;
     }
 }
-#{Line( $props.data, { width: $props.width, height: $props.height, min: $props.min, max: $props.max, weight: 3 })}
+#{Line( $props.data, { width: $props.width, height: $props.height, min: $props.min, max: $props.max, weight: $props.weight ?? 1 })}

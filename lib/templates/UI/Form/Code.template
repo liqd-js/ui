@@ -13,8 +13,6 @@
 
             _init()
             {
-                console.log( this.innerText );
-
                 let source = this.childNodes[0].textContent.trim();
                 this.innerHTML = '';
                 let html = '<div class="wrapper"></div>';
@@ -22,8 +20,6 @@
                 const shadowRoot = this.attachShadow({
                     mode: 'closed'
                 });
-
-                console.log( this, this.childNodes, shadowRoot.innerHTML );
 
                 shadowRoot.innerHTML = html;
 
@@ -60,7 +56,7 @@
             connectedCallback() // added to page
             {
                 //this.render();
-                console.log( 'connectedCallback', this.childNodes.length, this.innerText );
+                //console.log( 'connectedCallback', this.childNodes.length, this.innerText );
 
                 window.requestAnimationFrame(() =>
                 {
