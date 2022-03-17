@@ -3,12 +3,37 @@
     <style>
         .UI_Tabs
         {
+            position: relative;
+
+            > .UI_Tabs_Content
+            {
+                position: relative;
+            }
+        }
+    </style>    
+    <div class={'UI_Tabs' + ( $props.class ? ' ' + $props.class : '' )} {[!class]...$props}>
+        {$content}
+    </div>
+    // TODO add hidden, pridat callback, default callback prida podla selectora tomu co neni hidden atribut hidden a zrusi na tom co ma byt hidden podla poradia childu
+    // callback ma parametre ( tab, event = show | close )
+}
+[root.Content]
+{
+    <div class={'UI_Tabs_Content' + ( $props.class ? ' ' + $props.class : '' )} {[!class]...$props}>
+        {$content}
+    </div>
+}
+[root.Header]
+{
+    <style>
+        .UI_Tabs_Header
+        {
             display: flex;
             flex-direction: row;
             justify-content: flex-start;
             border-bottom: 1px solid silver;
         
-            > .UI_Tab
+            > .UI_Tabs_Tab
             {
                 position: relative;
                 display: flex;
@@ -16,28 +41,19 @@
                 padding: 8px;
                 cursor:pointer;
                 margin-bottom: -1px;
+                justify-content: flex-start;
+                border: 1px solid silver;
             }
         }
     </style>    
-    <div class={'UI_Tabs' + ( $props.class ? ' ' + $props.class : '' )}>
+    <div class={'UI_Tabs_Header' + ( $props.class ? ' ' + $props.class : '' )}>
         {$content}
     </div>
-    // TODO add hidden, pridat callback, default callback prida podla selectora tomu co neni hidden atribut hidden a zrusi na tom co ma byt hidden podla poradia childu
-    // callback ma parametre ( tab, event = show | close )
 }
 [root.Tab]
 {
-    <style>
-        .UI_Tab
-        {
-            display: flex;
-            flex-direction: row;
-            justify-content: flex-start;
-            border: 1px solid silver;
-        }
-    </style>
-    //<div class={'UI_Tab' + ( $props.class ? ' ' + $props.class : '' )} {[data-*]...$props} onclick="console.log(this.dataset);">
-    <div class={'UI_Tab' + ( $props.class ? ' ' + $props.class : '' )} {[data-*,onclick]...$props}>
+    //<div class={'UI_Tabs_Tab' + ( $props.class ? ' ' + $props.class : '' )} {[data-*]...$props} onclick="console.log(this.dataset);">
+    <div class={'UI_Tabs_Tab' + ( $props.class ? ' ' + $props.class : '' )} {[!class]...$props}>
         {$content}
     </div>
     // Todo attribut close={ true }

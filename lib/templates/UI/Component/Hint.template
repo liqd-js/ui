@@ -1,0 +1,30 @@
+<style>
+    .UI_Hint
+    {
+        border-left: 4px solid #d0d0d0;
+        background: #f0f0f0;
+        margin: 16px 0;
+        padding: 16px;
+
+        --icon-size: 24px;
+        --icon-color: #666;
+
+        h1, h2, h3, h4, h5
+        {
+            font-weight: bold;
+            line-height: 1.35em;
+            margin: 0; padding: 0;
+        }
+
+        p
+        {
+            font-weight: normal;
+            line-height: 1.35em;
+            margin: 0; padding: 0;
+        }
+    }
+</style>    
+<div class={'UI_Hint' + ( $props.class ? ' ' + $props.class : '' )}>
+    <Icon icon="triangle-exclamation"/>
+    {$content}
+</div>
