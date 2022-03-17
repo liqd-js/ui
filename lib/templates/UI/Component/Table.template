@@ -6,7 +6,9 @@
             display: grid;
             flex-direction: column;
 
-            > .UI_Table_Header, > .UI_Table_Row { grid-template-columns: 30px 2fr 1fr 1fr; }
+            //> .UI_Table_Header, > .UI_Table_Row { grid-template-columns: 30px 2fr 1fr 1fr; }
+
+            > .UI_Table_Header, > .UI_Table_Row { grid-template-columns: repeat( 3, 1fr ); }
 
             //> .UI_Table_Header, > .UI_Table_Row { grid-template-columns: minmax( max-content, 1fr ) minmax( max-content, 1fr ) minmax( max-content, 1fr ) minmax( max-content, 1fr ); }
 

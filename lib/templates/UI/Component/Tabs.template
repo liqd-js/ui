@@ -13,6 +13,9 @@
                 position: relative;
                 display: flex;
                 flex-direction: row;
+                padding: 8px;
+                cursor:pointer;
+                margin-bottom: -1px;
             }
         }
     </style>    
@@ -33,7 +36,8 @@
             border: 1px solid silver;
         }
     </style>
-    <div class={'UI_Tab' + ( $props.class ? ' ' + $props.class : '' )} {[data-*]...$props} onclick="console.log(this.dataset);">
+    //<div class={'UI_Tab' + ( $props.class ? ' ' + $props.class : '' )} {[data-*]...$props} onclick="console.log(this.dataset);">
+    <div class={'UI_Tab' + ( $props.class ? ' ' + $props.class : '' )} {[data-*,onclick]...$props}>
         {$content}
     </div>
     // Todo attribut close={ true }
