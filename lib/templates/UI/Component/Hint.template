@@ -1,13 +1,17 @@
 <style>
     .UI_Hint
     {
-        border-left: 4px solid #d0d0d0;
+        border-left: 8px solid #d0d0d0;
+        border-left-color: #ebca40;
         background: #f0f0f0;
+        background: #fcf7e4;
+        color:#522c09;
         margin: 16px 0;
         padding: 16px;
 
         --icon-size: 24px;
         --icon-color: #666;
+        --icon-color: #522c09;
 
         h1, h2, h3, h4, h5
         {
