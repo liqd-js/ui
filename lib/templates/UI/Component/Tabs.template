@@ -10,7 +10,26 @@
                 position: relative;
             }
         }
-    </style>    
+    </style>
+    <script>
+        window.UI_Tabs = class UI_Tabs
+        {
+            static onTab( tab )
+            {
+                if( tab.hasAttribute('active') ){ return }
+
+                let header = tab.parentNode;
+                [...header.querySelectorAll(':scope > .UI_Tabs_Tab[active]')].forEach( t => t.removeAttribute('active') );
+                tab.setAttribute( 'active', '' );
+
+                let tabs = header.nextElementSibling, index = [...header.children].filter( t => t.classList.contains('UI_Tabs_Tab') ).indexOf( tab );
+                while( tabs && !tabs.classList.contains('UI_Tabs') ){ tabs = tabs.nextElementSibling }
+
+                [...tabs.querySelectorAll(':scope > .UI_Tabs_Content:not([hidden])')].forEach( t => t.setAttribute( 'hidden', '' ));
+                [...tabs.children].filter( t => t.classList.contains('UI_Tabs_Content') )[index].removeAttribute('hidden');
+            }
+        }
+    </script>
     <div class={'UI_Tabs' + ( $props.class ? ' ' + $props.class : '' )} {[!class]...$props}>
         {$content}
     </div>
@@ -19,7 +38,7 @@
 }
 [root.Content]
 {
-    <div class={'UI_Tabs_Content' + ( $props.class ? ' ' + $props.class : '' )} {[!class]...$props}>
+    <div class={'UI_Tabs_Content' + ( $props.class ? ' ' + $props.class : '' )} hidden={$props.hasOwnProperty('active') ? undefined : null } {[!class,!active]...$props}>
         {$content}
     </div>
 }
@@ -33,6 +52,10 @@
             justify-content: flex-start;
             border-bottom: 1px solid silver;
             gap: 16px;
+            user-select: none;
+            -moz-user-select: none;
+            -webkit-user-select: none;
+            cursor: default;
         
             > .UI_Tabs_Tab
             {
@@ -51,7 +74,7 @@
                 
                 padding: 8px 0;
                 
-                &:nth-child(1)
+                &[active]
                 {
                     border-bottom-color: blue;
                     color: blue;
@@ -66,7 +89,7 @@
 [root.Tab]
 {
     //<div class={'UI_Tabs_Tab' + ( $props.class ? ' ' + $props.class : '' )} {[data-*]...$props} onclick="console.log(this.dataset);">
-    <div class={'UI_Tabs_Tab' + ( $props.class ? ' ' + $props.class : '' )} {[!class]...$props}>
+    <div class={'UI_Tabs_Tab' + ( $props.class ? ' ' + $props.class : '' )} {[!class]...$props} onclick="UI_Tabs.onTab(this)">
         {$content}
     </div>
     // Todo attribut close={ true }
